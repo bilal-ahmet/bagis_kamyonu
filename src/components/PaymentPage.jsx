@@ -1,6 +1,5 @@
 import { useState } from 'react'
-import Cards from 'react-credit-cards-2'
-import 'react-credit-cards-2/dist/es/styles-compiled.css'
+import CreditCard from './CreditCard'
 
 function PaymentPage({ amount, onPaymentComplete, onCancel }) {
   const [cardData, setCardData] = useState({
@@ -92,13 +91,7 @@ function PaymentPage({ amount, onPaymentComplete, onCancel }) {
         
         <div className="payment-content">
           <div className="card-preview">
-            <Cards
-              number={cardData.number}
-              expiry={cardData.expiry}
-              cvc={cardData.cvc}
-              name={cardData.name}
-              focused={cardData.focus}
-            />
+            <CreditCard cardData={cardData} />
           </div>
           
           <form onSubmit={handleSubmit} className="payment-form">
