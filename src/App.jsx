@@ -1,4 +1,4 @@
-import { useState, Suspense } from 'react'
+import { useState, Suspense, useRef } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls, Environment } from '@react-three/drei'
 import TruckScene from './components/TruckScene'
@@ -8,7 +8,15 @@ import './App.css'
 function App() {
   const [totalDonation, setTotalDonation] = useState(0)
   const [fillPercentage, setFillPercentage] = useState(0)
+  const [cameraView, setCameraView] = useState(1)
   const targetAmount = 100000 // Hedef miktar (TL)
+  const controlsRef = useRef()
+
+  // Kamera pozisyonları
+  const cameraPositions = {
+    1: { position: [45, 20, 35], target: [0, 0, 0] }, // Sağ üst çapraz
+    2: { position: [80, 10, 0], target: [0, 0, 0] }   // Tam yan görünüm
+  }
 
   const addDonation = (amount) => {
     const newTotal = totalDonation + amount
@@ -17,7 +25,16 @@ function App() {
     // Doluluk yüzdesini hesapla (maksimum %100)
     const newPercentage = Math.min((newTotal / targetAmount) * 100, 100)
     setFillPercentage(newPercentage)
-    
+  }
+
+  const switchCamera = (viewNumber) => {
+    setCameraView(viewNumber)
+    if (controlsRef.current) {
+      const targetPos = cameraPositions[viewNumber]
+      controlsRef.current.object.position.set(...targetPos.position)
+      controlsRef.current.target.set(...targetPos.target)
+      controlsRef.current.update()
+    }
   }
 
   return (
@@ -30,7 +47,7 @@ function App() {
       <div className="main-content">
         <div className="canvas-container">
           <Canvas 
-            camera={{ position: [90, 15, 20], fov: 10 }}
+            camera={{ position: [45, 20, 35], fov: 20 }}
           >
             <ambientLight intensity={0.6} />
             <directionalLight position={[10, 10, 5]} intensity={1} />
@@ -38,14 +55,31 @@ function App() {
             <Suspense fallback={null}>
               <TruckScene fillPercentage={fillPercentage} />
               <OrbitControls 
-                enablePan={true}
-                enableZoom={true}
-                enableRotate={true}
-                maxPolarAngle={Math.PI / 2}
+                ref={controlsRef}
+                enablePan={false}
+                enableZoom={false}
+                enableRotate={false}
+                target={[0, 0, 0]}
               />
               <Environment preset="sunset" />
             </Suspense>
           </Canvas>
+          
+          {/* Kamera Geçiş Butonları */}
+          <div className="camera-controls">
+            <button 
+              className={`camera-btn ${cameraView === 1 ? 'active' : ''}`}
+              onClick={() => switchCamera(1)}
+            >
+              1
+            </button>
+            <button 
+              className={`camera-btn ${cameraView === 2 ? 'active' : ''}`}
+              onClick={() => switchCamera(2)}
+            >
+              2
+            </button>
+          </div>
         </div>
         
         <DonationInterface 

@@ -22,10 +22,10 @@ function TruckModel() {
   const box = new THREE.Box3().setFromObject(gltf.scene)
   
   return (
-    <group position={[0, -0.3, 0]}>
+    <group position={[0, -0.3, 5]}>
       <primitive 
         object={gltf.scene} 
-        scale={[700, 700, 700]}
+        scale={[1400, 1400, 1400]}
         rotation={[0, 0, 0]}
       />
     </group>
@@ -85,10 +85,10 @@ function TrailerModel({ fillPercentage }) {
   }, [gltf.scene, fillPercentage])
   
   return (
-    <group position={[0, -0.3, 0.5]}>
+    <group position={[0, -0.4, 6]}>
       <primitive
         object={gltf.scene} 
-        scale={[0.15, 0.15, 0.15]}
+        scale={[0.40, 0.37, 0.40]}
         rotation={[0, 0, 0]}
       />
     </group>
@@ -161,24 +161,6 @@ function TruckScene({ fillPercentage }) {
   
   return (
     <group>
-      {/* Çimen ve yol (büyütülmüş) */}
-      {/* Grass left */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[-15, -0.5, 0]}>
-        <boxGeometry args={[30, 40, 0.1]} />
-        <meshStandardMaterial color="#4caf50" />
-      </mesh>
-      {/* Road */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.49, 0]}>
-        <boxGeometry args={[14, 40, 0.2]} />
-        <meshStandardMaterial color="#444444" />
-      </mesh>
-      {/* Grass right */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[15, -0.5, 0]}>
-        <boxGeometry args={[30, 40, 0.1]} />
-        <meshStandardMaterial color="#4caf50" />
-      </mesh>
-      {/* Grid çizgileri */}
-      <gridHelper args={[50, 50, "#dddddd", "#dddddd"]} position={[0, -0.48, 0]} />
       {/* Gerçek GLTF Modeller */}
       <TruckModel />
       <TrailerModel fillPercentage={fillPercentage} />

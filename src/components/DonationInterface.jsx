@@ -1,20 +1,36 @@
 import { useState } from 'react'
+import PaymentPage from './PaymentPage'
 
 function DonationInterface({ totalDonation, fillPercentage, targetAmount, onDonate }) {
   const [donationAmount, setDonationAmount] = useState('')
+  const [showPayment, setShowPayment] = useState(false)
+  const [pendingAmount, setPendingAmount] = useState(0)
   
   const quickAmounts = [50, 100, 250, 500, 1000, 2500]
   
   const handleDonate = () => {
     const amount = parseFloat(donationAmount)
     if (amount > 0) {
-      onDonate(amount)
-      setDonationAmount('')
+      setPendingAmount(amount)
+      setShowPayment(true)
     }
   }
   
   const handleQuickDonate = (amount) => {
+    setPendingAmount(amount)
+    setShowPayment(true)
+  }
+  
+  const handlePaymentComplete = (amount) => {
     onDonate(amount)
+    setDonationAmount('')
+    setShowPayment(false)
+    setPendingAmount(0)
+  }
+  
+  const handlePaymentCancel = () => {
+    setShowPayment(false)
+    setPendingAmount(0)
   }
   
   return (
@@ -89,6 +105,15 @@ function DonationInterface({ totalDonation, fillPercentage, targetAmount, onDona
         <div className="success-message">
           🎉 Hedef tamamlandı! Teşekkürler! 🎉
         </div>
+      )}
+      
+      {/* Payment Page Modal */}
+      {showPayment && (
+        <PaymentPage
+          amount={pendingAmount}
+          onPaymentComplete={handlePaymentComplete}
+          onCancel={handlePaymentCancel}
+        />
       )}
     </div>
   )
