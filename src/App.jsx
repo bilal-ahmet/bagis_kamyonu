@@ -3,13 +3,15 @@ import { Canvas } from '@react-three/fiber'
 import { OrbitControls, Environment } from '@react-three/drei'
 import TruckScene from './components/TruckScene'
 import DonationInterface from './components/DonationInterface'
+import TargetEditor from './components/TargetEditor'
 import './App.css'
 
 function App() {
   const [totalDonation, setTotalDonation] = useState(0)
   const [fillPercentage, setFillPercentage] = useState(0)
   const [cameraView, setCameraView] = useState(1)
-  const targetAmount = 100000 // Hedef miktar (TL)
+  const [targetAmount, setTargetAmount] = useState(100000) // Hedef miktar (TL) - artık state
+  const [showTargetEditor, setShowTargetEditor] = useState(false)
   const controlsRef = useRef()
 
   // Kamera pozisyonları
@@ -37,11 +39,36 @@ function App() {
     }
   }
 
+  const updateTargetAmount = (newTarget) => {
+    setTargetAmount(newTarget)
+    // Yeni hedef ile doluluk yüzdesini yeniden hesapla
+    const newPercentage = Math.min((totalDonation / newTarget) * 100, 100)
+    setFillPercentage(newPercentage)
+    setShowTargetEditor(false)
+  }
+
   return (
     <div className="app">
       <div className="header">
         <h1>Bağış Kamyonu</h1>
-        <p>Hedef: ₺{targetAmount.toLocaleString('tr-TR')}</p>
+        <div className="target-display">
+          <p>Hedef: ₺{targetAmount.toLocaleString('tr-TR')}</p>
+          <button 
+            className="edit-target-btn"
+            onClick={() => setShowTargetEditor(true)}
+            title="Hedef miktarını düzenle"
+          >
+            ⚙️
+          </button>
+        </div>
+        
+        {showTargetEditor && (
+          <TargetEditor 
+            currentTarget={targetAmount}
+            onSave={updateTargetAmount}
+            onCancel={() => setShowTargetEditor(false)}
+          />
+        )}
       </div>
       
       <div className="main-content">
