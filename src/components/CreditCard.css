@@ -105,15 +105,67 @@
 
 @media (max-width: 768px) {
   .credit-card {
-    width: 280px;
-    height: 175px;
+    width: 100%;
+    max-width: 300px;
+    height: 180px;
+    margin: 0 auto 16px;
   }
   
   .card-front {
-    padding: 15px;
+    padding: 16px;
   }
   
   .card-number {
     font-size: 16px;
+    letter-spacing: 1px;
+  }
+  
+  .value {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .credit-card {
+    width: 100%;
+    max-width: 280px;
+    height: 160px;
+    margin: 0 auto 12px;
+  }
+  
+  .card-front {
+    padding: 14px;
+  }
+  
+  .card-chip {
+    width: 40px;
+    height: 30px;
+    margin: 8px 0;
+  }
+  
+  .card-chip::before {
+    top: 6px;
+    left: 6px;
+    right: 6px;
+    bottom: 6px;
+  }
+  
+  .card-number {
+    font-size: 14px;
+    letter-spacing: 1px;
+    margin: 8px 0;
+  }
+  
+  .card-type {
+    font-size: 12px;
+    padding: 3px 6px;
+  }
+  
+  .label {
+    font-size: 9px;
+  }
+  
+  .value {
+    font-size: 12px;
   }
 }

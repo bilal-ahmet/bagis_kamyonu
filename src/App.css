@@ -399,8 +399,9 @@ body {
   }
   
   .canvas-container {
-    height: 60vh;
-    min-height: 400px;
+    height: 45vh;
+    min-height: 350px;
+    max-height: 450px;
     margin-bottom: 8px;
   }
   
@@ -411,7 +412,9 @@ body {
   .donation-interface {
     max-width: none;
     height: auto;
+    min-height: 400px;
     margin-top: 8px;
+    flex: 1;
   }
 }
 
@@ -426,6 +429,7 @@ body {
   
   .main-content {
     padding: 12px;
+    gap: 12px;
   }
   
   .canvas-container, .donation-interface {
@@ -434,8 +438,14 @@ body {
   }
   
   .canvas-container {
-    height: 50vh;
-    min-height: 300px;
+    height: 35vh;
+    min-height: 250px;
+    max-height: 300px;
+  }
+  
+  .donation-interface {
+    flex: 1;
+    min-height: 400px;
   }
   
   .quick-amounts {
@@ -444,8 +454,10 @@ body {
   }
   
   .quick-amount-btn {
-    padding: 14px;
+    padding: 16px 12px;
     font-size: 0.9rem;
+    min-height: 60px;
+    border-radius: 12px;
   }
   
   .stat-item {
@@ -456,6 +468,32 @@ body {
   .amount, .percentage, .remaining {
     font-size: 1.6rem;
   }
+  
+  .custom-amount input {
+    padding: 16px;
+    font-size: 16px; /* Prevents zoom on iOS */
+    border-radius: 12px;
+  }
+  
+  .donate-btn {
+    padding: 16px 24px;
+    font-size: 16px;
+    border-radius: 12px;
+    min-height: 56px;
+  }
+  
+  .camera-controls {
+    gap: 8px;
+    padding: 12px;
+  }
+  
+  .camera-btn {
+    padding: 12px;
+    min-width: 48px;
+    min-height: 48px;
+    font-size: 0.8rem;
+    border-radius: 10px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -465,6 +503,7 @@ body {
   
   .header h1 {
     font-size: 1.8rem;
+    line-height: 1.2;
   }
   
   .header p {
@@ -473,23 +512,96 @@ body {
   
   .main-content {
     padding: 8px;
+    gap: 8px;
   }
   
   .canvas-container, .donation-interface {
     padding: 16px;
     border-radius: 12px;
+    margin: 0;
+  }
+  
+  .canvas-container {
+    height: 30vh;
+    min-height: 200px;
+    max-height: 250px;
+  }
+  
+  .donation-interface {
+    flex: 1;
+    min-height: 450px;
   }
   
   .quick-amounts {
     grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .quick-amount-btn {
+    padding: 18px 16px;
+    font-size: 1rem;
+    min-height: 64px;
+    border-radius: 12px;
+    font-weight: 600;
   }
   
   .stat-item {
     padding: 16px;
+    margin-bottom: 16px;
+    text-align: center;
   }
   
   .amount, .percentage, .remaining {
     font-size: 1.4rem;
+  }
+  
+  .custom-amount {
+    margin: 20px 0;
+  }
+  
+  .custom-amount input {
+    width: 100%;
+    padding: 18px 16px;
+    font-size: 16px;
+    border-radius: 12px;
+    border: 2px solid #e2e8f0;
+    margin-bottom: 12px;
+  }
+  
+  .donate-btn {
+    width: 100%;
+    padding: 18px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 12px;
+    min-height: 60px;
+  }
+  
+  .camera-controls {
+    gap: 6px;
+    padding: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .camera-btn {
+    padding: 10px 12px;
+    min-width: 44px;
+    min-height: 44px;
+    font-size: 0.75rem;
+    border-radius: 8px;
+    flex: 0 0 auto;
+  }
+  
+  .progress-bar {
+    margin: 20px 0;
+  }
+  
+  .success-message {
+    padding: 16px;
+    margin: 16px 0;
+    font-size: 1rem;
+    border-radius: 12px;
   }
 }
 
@@ -689,7 +801,17 @@ body {
 @media (max-width: 768px) {
   .payment-container {
     width: 95%;
-    margin: 20px;
+    margin: 20px auto;
+    max-height: 85vh;
+    overflow-y: auto;
+  }
+  
+  .payment-header {
+    padding: 16px 20px;
+  }
+  
+  .payment-header h2 {
+    font-size: 1.4rem;
   }
   
   .payment-content {
@@ -698,9 +820,184 @@ body {
   
   .form-row {
     grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .form-group input {
+    padding: 16px;
+    font-size: 16px; /* Prevents zoom on iOS */
+    border-radius: 12px;
   }
   
   .payment-buttons {
     flex-direction: column;
+    gap: 12px;
+    margin-top: 24px;
+  }
+  
+  .payment-btn, .cancel-btn {
+    width: 100%;
+    padding: 16px;
+    font-size: 16px;
+    min-height: 56px;
+    border-radius: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .payment-overlay {
+    padding: 10px;
+  }
+  
+  .payment-container {
+    width: 100%;
+    margin: 10px 0;
+    max-height: 95vh;
+    border-radius: 16px;
+  }
+  
+  .payment-header {
+    padding: 16px;
+  }
+  
+  .payment-header h2 {
+    font-size: 1.3rem;
+  }
+  
+  .close-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
+  }
+  
+  .payment-amount {
+    padding: 16px;
+    font-size: 1.1rem;
+  }
+  
+  .payment-content {
+    padding: 16px;
+  }
+  
+  .form-group {
+    margin-bottom: 16px;
+  }
+  
+  .form-group label {
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+  }
+  
+  .form-group input {
+    padding: 18px 16px;
+    font-size: 16px;
+    border-radius: 12px;
+    border: 2px solid #e2e8f0;
+  }
+  
+  .form-group input:focus {
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+  }
+  
+  .payment-buttons {
+    margin-top: 20px;
+    gap: 10px;
+  }
+  
+  .payment-btn {
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+    font-weight: 600;
+  }
+  
+  .cancel-btn {
+    background: #f1f5f9;
+    color: #64748b;
+    font-weight: 500;
+  }
+}
+
+/* Extra Small Devices (phones, 360px and down) */
+@media (max-width: 360px) {
+  .header {
+    padding: 20px 12px;
+  }
+  
+  .header h1 {
+    font-size: 1.6rem;
+    line-height: 1.2;
+  }
+  
+  .main-content {
+    padding: 6px;
+    gap: 6px;
+  }
+  
+  .canvas-container {
+    height: 25vh;
+    min-height: 180px;
+    max-height: 200px;
+    padding: 12px;
+  }
+  
+  .donation-interface {
+    padding: 12px;
+    flex: 1;
+    min-height: 500px;
+  }
+  
+  .quick-amount-btn {
+    padding: 16px 12px;
+    font-size: 0.9rem;
+    min-height: 56px;
+  }
+  
+  .stat-item {
+    padding: 12px;
+    margin-bottom: 12px;
+  }
+  
+  .amount, .percentage, .remaining {
+    font-size: 1.2rem;
+  }
+  
+  .camera-btn {
+    padding: 8px 10px;
+    min-width: 40px;
+    min-height: 40px;
+    font-size: 0.7rem;
+  }
+  
+  .payment-container {
+    margin: 5px 0;
+    border-radius: 12px;
+  }
+  
+  .payment-header {
+    padding: 12px;
+  }
+  
+  .payment-header h2 {
+    font-size: 1.2rem;
+  }
+  
+  .payment-content {
+    padding: 12px;
+  }
+}
+
+/* Touch-friendly improvements */
+@media (hover: none) and (pointer: coarse) {
+  .quick-amount-btn, .donate-btn, .camera-btn, .payment-btn, .cancel-btn {
+    min-height: 48px; /* iOS Human Interface Guidelines */
+  }
+  
+  .quick-amount-btn:active, .donate-btn:active, .camera-btn:active {
+    transform: scale(0.97);
+  }
+  
+  /* Better touch targets */
+  button, input[type="text"], input[type="number"] {
+    min-height: 44px;
   }
 }
