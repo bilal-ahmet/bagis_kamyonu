@@ -1,36 +1,21 @@
 import { useState } from 'react'
-import PaymentPage from './PaymentPage'
+import { useNavigate } from 'react-router-dom'
 
 function DonationInterface({ totalDonation, fillPercentage, targetAmount, onDonate }) {
   const [donationAmount, setDonationAmount] = useState('')
-  const [showPayment, setShowPayment] = useState(false)
-  const [pendingAmount, setPendingAmount] = useState(0)
+  const navigate = useNavigate()
   
   const quickAmounts = [50, 100, 250, 500, 1000, 2500]
   
   const handleDonate = () => {
     const amount = parseFloat(donationAmount)
     if (amount > 0) {
-      setPendingAmount(amount)
-      setShowPayment(true)
+      navigate(`/payment?amount=${amount}`)
     }
   }
   
   const handleQuickDonate = (amount) => {
-    setPendingAmount(amount)
-    setShowPayment(true)
-  }
-  
-  const handlePaymentComplete = (amount) => {
-    onDonate(amount)
-    setDonationAmount('')
-    setShowPayment(false)
-    setPendingAmount(0)
-  }
-  
-  const handlePaymentCancel = () => {
-    setShowPayment(false)
-    setPendingAmount(0)
+    navigate(`/payment?amount=${amount}`)
   }
   
   return (
@@ -105,15 +90,6 @@ function DonationInterface({ totalDonation, fillPercentage, targetAmount, onDona
         <div className="success-message">
           🎉 Hedef tamamlandı! Teşekkürler! 🎉
         </div>
-      )}
-      
-      {/* Payment Page Modal */}
-      {showPayment && (
-        <PaymentPage
-          amount={pendingAmount}
-          onPaymentComplete={handlePaymentComplete}
-          onCancel={handlePaymentCancel}
-        />
       )}
     </div>
   )
