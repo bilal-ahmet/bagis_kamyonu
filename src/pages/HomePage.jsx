@@ -1,10 +1,12 @@
-import { useState, Suspense, useRef, useEffect } from 'react'
+import { useState, Suspense, useRef, useEffect, lazy } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls, Environment } from '@react-three/drei'
-import TruckScene from '../components/TruckScene'
-import DonationInterface from '../components/DonationInterface'
-import TargetEditor from '../components/TargetEditor'
+
+// Lazy load heavy components
+const TruckScene = lazy(() => import('../components/TruckScene'))
+const DonationInterface = lazy(() => import('../components/DonationInterface'))
+const TargetEditor = lazy(() => import('../components/TargetEditor'))
 
 function HomePage() {
   const [totalDonation, setTotalDonation] = useState(0)
@@ -98,7 +100,12 @@ function HomePage() {
           >
             <ambientLight intensity={0.6} />
             <directionalLight position={[10, 10, 5]} intensity={1} />
-            <Suspense fallback={null}>
+            <Suspense fallback={
+              <mesh>
+                <boxGeometry args={[10, 5, 20]} />
+                <meshStandardMaterial color="#ff6b9d" transparent opacity={0.3} />
+              </mesh>
+            }>
               <TruckScene fillPercentage={fillPercentage} />
               <Environment preset="city" />
             </Suspense>
@@ -128,12 +135,19 @@ function HomePage() {
         </div>
         
         <div className="donation-interface">
-          <DonationInterface 
-            totalDonation={totalDonation}
-            targetAmount={targetAmount}
-            fillPercentage={fillPercentage}
-            onDonate={handleDonation}
-          />
+          <Suspense fallback={
+            <div className="loading-placeholder">
+              <div className="loading-spinner"></div>
+              <p>Bağış arayüzü yükleniyor...</p>
+            </div>
+          }>
+            <DonationInterface 
+              totalDonation={totalDonation}
+              targetAmount={targetAmount}
+              fillPercentage={fillPercentage}
+              onDonate={handleDonation}
+            />
+          </Suspense>
         </div>
       </div>
     </>

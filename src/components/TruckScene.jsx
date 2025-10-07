@@ -1,5 +1,5 @@
 import { useGLTF } from '@react-three/drei'
-import { useEffect, useRef, Suspense } from 'react'
+import { useEffect, useRef, Suspense, useState } from 'react'
 import * as THREE from 'three'
 
 // GLTF model bileşenleri - Suspense içinde kullanılmalı
