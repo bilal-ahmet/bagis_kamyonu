@@ -1,5 +1,5 @@
 [build]
-  command = "npm run build"
+  command = "npm ci && npm run build"
   publish = "dist"
 
 [[redirects]]
@@ -48,4 +48,5 @@
 # Build environment
 [build.environment]
   NODE_ENV = "production"
-  NODE_OPTIONS = "--max-old-space-size=4096"
+  NODE_VERSION = "18.17.0"
+  NPM_USE_PRODUCTION = "false"
