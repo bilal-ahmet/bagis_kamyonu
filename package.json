@@ -9,10 +9,11 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "npx vite build",
+    "build": "npx vite build --mode production",
     "lint": "eslint .",
     "preview": "vite preview",
-    "postinstall": "npm ls"
+    "postinstall": "npm ls",
+    "clean": "rm -rf dist || rmdir /s /q dist"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.6",
