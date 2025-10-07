@@ -1,13 +1,26 @@
-# Bağış Kamyonu - 3D Donation Tracker
+# Bağış Kamyonu 🚛
 
-Modern 3D truck and trailer visualization for donation tracking with real-time progress updates.
+3D bağış kamyonu görselleştirmesi ile hedefimize birlikte ulaşalım!
 
-## 🚀 Features
+## 🚀 Vercel'de Deploy Etme
 
-- **3D Visualization**: Real truck and trailer models using Three.js
-- **Dynamic Color Changes**: Trailer color changes based on donation percentage
-- **Real-time Updates**: Instant progress tracking
-- **Modern UI**: Clean, responsive design
+### Otomatik Deploy (Önerilen)
+1. [Vercel](https://vercel.com) hesabı oluşturun
+2. GitHub repository'sini Vercel'a bağlayın  
+3. Otomatik deploy başlayacak
+
+### Manuel Deploy
+```bash
+npm install -g vercel
+vercel --prod
+```
+
+## 🎯 Özellikler
+
+- ✅ 3D kamyon modeli ve römork
+- ✅ Dinamik renk değişimi (bağış yüzdesine göre)
+- ✅ Gerçek zamanlı güncelleme
+- ✅ Modern, responsive tasarım
 - **Mobile Friendly**: Optimized for all devices
 
 ## 🛠️ Technologies
